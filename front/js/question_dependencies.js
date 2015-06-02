@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 var DEPENDENCIES = [
   { target: "marital_status", child: "spouse_employment_status", 
     type: "equals", comparator: "MAR" },
@@ -14,11 +5,16 @@ var DEPENDENCIES = [
     type: "in", comparator: [ "FT", "PT", "SEA" ] },
   { target: "insurance_status", child: "coverage_type",
     type: "equals", comparator: "Y" },
+  { target: "languages", child: "has_interpreter",
+    type: "notin", comparator: ["", "EN"] },
 ];
 
 var DEPENDENCY_PROCESSORS = {
   "equals": function(answer, comparator){
     return answer == comparator;
+    },
+  "notin": function(answer, comparator){
+    return $.inArray(answer, comparator) == -1;
     },
   "in": function(answer, comparator){
     return $.inArray(answer, comparator) > -1;

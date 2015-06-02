@@ -1,4 +1,4 @@
-  <div class="form-group language">
+  <div class="form-group languages">
     <label for="language">Language</label>
     <select class="form-control has_other" name="languages">
       {% with  %}
@@ -13,4 +13,20 @@
   <div class="form-group {% if not patient.language == "Other" %} hidden{% endif %}">
     <label for="language_other">Please specify other language</label>
     <input type="text" class="form-control" name="language_other" id="language_other">
+  </div>
+
+  <div class="form-group has_interpreter service_an">
+    <label>
+      <span class="question_text">
+        Does the patient have an interpreter?
+      </span>
+      <select class="form-control" name="has_interpreter">
+        {% with  %}
+        {% set default_choice=("", "") %}
+        {% set choices=CONSTANTS.YN_CHOICES %}
+        {% set test_value=patient.has_interpreter %}
+        {% include "includes/choices.html" %}
+        {% endwith %}
+      </select>
+    </label>
   </div>
