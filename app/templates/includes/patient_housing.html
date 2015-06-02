@@ -1,5 +1,5 @@
 
-  <div class="form-group">
+  <div class="form-group housing_status">
     <label for="housing_status">Living situation</label>
     <select class="form-control has_other" name="housing_status">
       {% with %}
@@ -14,5 +14,15 @@
   <div class="form-group {% if not patient.housing_status == "Other" %} hidden{% endif %}">
     <label for="housing_status_other">Please specify other living situation</label>
     <input type="text" class="form-control" name="housing_status_other" id="housing_status_other">
+  </div>
+
+  <div class="form-group city_or_county_of_residence service_an">
+    <label>
+      <span class="question_text">
+        City or county of residence
+      </span>
+      <input type="text" class="form-control" name="city_or_county_of_residence" value="{{ patient.city_or_county_of_residence }}">
+    </label>
+
   </div>
 

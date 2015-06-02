@@ -7,6 +7,8 @@ var DEPENDENCIES = [
     type: "equals", comparator: "Y" },
   { target: "languages", child: "has_interpreter",
     type: "notin", comparator: ["", "EN"] },
+  { target: "housing_status", child: "city_or_county_of_residence",
+    type: "notin", comparator: ["STR", "EMR", "TRA"] },
 ];
 
 var DEPENDENCY_PROCESSORS = {
