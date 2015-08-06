@@ -1,73 +1,110 @@
 {% extends "base.html" %}
+{% from "includes/location_details_macro.html" import location_details %}
+
+{# get the hardcoded service details by name #}
+{% set details = CONSTANTS.SERVICES[service.name] %}
+
+{% block title -%}
+{{ service.name }} - RVA Screener
+{%- endblock title %}
 {% block content %}
-
 <div class="container">
-  <div class="block_4">
-    <h1>{{ service.name }}</h1>
-    <div class="service_details">
-      <p><i class="fa fa-user"></i> {{ service.main_contact_name }}</p>
-      <p><i class="fa fa-phone"></i> <a href="tel:">{{ service.main_contact_phone }}</a></p>
-      <p><span class="fa fa-link"></span> <a href="{{ service.website_url }}">website</a></p>
-    </div>
+  <h1>{{ service.name }}</h1>
 
-    <div class="service_locations">
+  <!--eligibility estimate and contact-->
+  {# 
+     It would be great to include an abbreviated eligibility
+     results on this page, along with a share button 
+   #}
 
-      <h3>{{ _("Location(s)") }}</h3>
-
-      {% for location in service.locations %}
-        <div class="location" 
-             data-name="{{ location.name }}" 
-             data-address="{{ location.address }}"
-             data-latitude="{{ location.latitude }}"
-             data-longitude="{{ location.longitude }}">
-          <i class="fa fa-map-marker"></i>
-          <span class="location_name"><strong>{{ location.name }}</strong></span>
-          <span class="location_address">{{ location.address }}</span> 
-        </div>
-      {% endfor %} 
-
-    </div>
-  </div>
-
-  <div class="block_8 block_padding">
-    <div class="service_description">
-      {{ service.description }}
-    </div>
-    
-    <div id="service-map" class="map_service"></div>
-
-    <div class="service_users">
-      <h3>{{ _("Users at %(service)s", service=service.name) }}</h3>
-      <div class="table-wrapper">
-        <table class="table table-condensed">
-          <thead>
-            <tr>
-              <th>{{ _("Name") }}</th>
-              <th>{{ _("Phone") }}</th>
-              <th>{{ _("Email") }}</th>
-            </tr>
-          </thead>
-
-          {% for user in service.users %}
-            <tr>
-              <td><a href="{{ url_for('screener.user', user_id=user.id) }}"><strong>{{ user.full_name }}</strong></a></td>
-              <td><a href="{{ user.phone }}">{{ user.phone_number }}</a></td>
-              <td><a href="{{ user.email }}">{{ user.email }}</a></td>
-            </tr>
-          {% endfor %}
-        </table>
+  <section name="locations">
+    <h2 class="section_title">{{ _("Locations") }}</h2>
+  {% if details['locations'] %}
+    {% for location in details['locations'] %}
+    <div class="service_location">
+      <h3 class="service_location_name">
+       {{location.name}}
+      </h3>
+      {% if location.services -%}
+      <ul class="location_service_list">
+        {% for service in location.services -%}
+        <li class="location_service">{{ service }}</li>
+        {%- endfor %}
+      </ul>
+      {%-endif %}
+      {% if location.type and location.type == 'LocationGroup' %}
+        {% for sublocation in location.sublocations %}
+          <div class="service_location_sublocation">
+            <h4 class="service_sublocation_name">
+              {{ sublocation.name }}
+            </h4>
+            {{ location_details(sublocation) }}
+          </div>
+        {% endfor %}
+      {% else -%}
+          {{ location_details(location) }}
+      {%- endif %}
       </div>
     </div>
-  </div>
+    {% endfor %}
+  {% endif %}
+  </section>
+
+   {# 
+     each section currently displays even when there is no value, 
+     so that we can see the types of questions that should be answered
+   #}
+  <section name="next_steps">
+    <h2 class="section_title">{{ _("What are the steps to get a clinical appointment?") }}</h2>
+    {% if details['next_steps'] %}
+      {{ details['next_steps']|markdown|safe }}
+    {% endif %}
+  </section>
+
+  <section name="eligibility">
+    <h2 class="section_title">{{ _("Who is accepted and how much are the fees?") }}</h2>
+    {% if details['eligibility'] %}
+      {{ details['eligibility']|markdown|safe }}
+    {% endif %}
+
+  {% for scale in service.sliding_scales %}
+  <h3>
+    <span class="sliding_scale_name">{{ scale.scale_name }}</span>:
+    <span class="sliding_scale_fpl">
+    {%- if scale.fpl_high -%}
+      {{ scale.fpl_low }} - {{ scale.fpl_high }}% FPL
+    {%- else -%}
+      {{ scale.fpl_low }}% FPL {{ _("and above") }}
+    {%- endif -%}
+    </span>
+  </p>
+  <table>
+  {% for fee in scale.sliding_scale_fees -%}
+    <tr>
+      <td>{{ fee.name }}</td>
+      <td>
+      {%- if fee.price_absolute -%}
+        ${{ fee.price_absolute }}
+      {%- elif fee.price_percentage -%}
+        {{ 100 - fee.price_percentage }}%
+      {%- endif -%}
+      </td>
+    </tr>
+  {% endfor %}
+  </table>
+{%- endfor %}</pre>
+
+  </section>
+
+  <section name="interpreters">
+    <h2 class="section_title">{{ _("What if the patient does not speak English?") }}</h2>
+    {% if details['interpreters'] %}
+      {{ details['interpreters']|markdown|safe }}
+    {% endif %}
+  </section>
+
+  <!--locations (floated, column 2)-->
+
+
 </div>
-
-  <div class="service">
-    <div class="col-sm-4">
-      
-    </div>
-    <div class="col-sm-8">
-      
-
-    </div>
-  </div>
 {% endblock %}

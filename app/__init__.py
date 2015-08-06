@@ -47,11 +47,13 @@ def register_context_processors(app):
     from app.context_processors import (
         inject_static_url,
         inject_example_data,
-        inject_template_constants
+        inject_template_constants,
+        register_markdown_filter
     )
     app.context_processor(inject_static_url)
     app.context_processor(inject_example_data)
     app.context_processor(inject_template_constants)
+    register_markdown_filter(app)
 
 def register_errorhandler(app):
     def render_error(error):

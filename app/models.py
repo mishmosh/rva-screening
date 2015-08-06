@@ -176,7 +176,7 @@ class Patient(BasicTable, db.Model):
       source.monthly_amount * 12 for source in self.income_sources if source.monthly_amount
     )
     self.fpl_percentage = (
-      float(self.total_annual_income) / 
+      float(self.total_annual_income) /
       (5200 * int(self.household_members.count() + 1) + 9520)) * 100
 
 

@@ -1,9 +1,18 @@
 #!/usr/bin/env python
 import sys
+from flask.ext.babel import gettext as _
 
 from flask import current_app
 from app import create_app
 from app.models import db, Service, SlidingScale, SlidingScaleFee, ServiceLocation
+
+
+DENTAL = _('Dental services')
+MEDICAL = _('Medical services')
+FIRST_VISIT = _('Mental health services, initial visit of calendar month')
+SECOND_VISIT = _('Mental health services, second visit of calendar month')
+OTHER_VISITS = _('Mental health services, other visits')
+ALL_SERVICES = _('All services')
 
 def main(app=create_app()):
   with app.app_context():
@@ -44,51 +53,42 @@ def main(app=create_app()):
       ],
       sliding_scales = [
         SlidingScale(
-          scale_name = 'Nominal',
+          scale_name = _('Nominal'),
           fpl_low = 0,
           fpl_high = 100,
           sliding_scale_fees = [
-            SlidingScaleFee(
-              name = 'Dental services',
+            SlidingScaleFee( name = DENTAL,
               price_percentage = 30
             ),
-            SlidingScaleFee(
-              name = 'Medical services',
+            SlidingScaleFee( name = MEDICAL,
               price_absolute = 10
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, initial visit of calendar month',
+            SlidingScaleFee( name = FIRST_VISIT,
               price_absolute = 10
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, other visits',
+            SlidingScaleFee( name = OTHER_VISITS,
               price_absolute = 5
             )
           ]
         ),
         SlidingScale(
-          scale_name = 'Slide A',
+          scale_name = _('Slide A'),
           fpl_low = 100,
           fpl_high = 125,
           sliding_scale_fees = [
-            SlidingScaleFee(
-              name = 'Dental services',
+            SlidingScaleFee( name = DENTAL,
               price_percentage = 45
             ),
-            SlidingScaleFee(
-              name = 'Medical services',
+            SlidingScaleFee( name = MEDICAL,
               price_absolute = 15
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, initial visit of calendar month',
+            SlidingScaleFee( name = FIRST_VISIT,
               price_absolute = 15
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, second visit of calendar month',
+            SlidingScaleFee( name = SECOND_VISIT,
               price_absolute = 10
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, other visits',
+            SlidingScaleFee( name = OTHER_VISITS,
               price_absolute = 5
             )
           ]
@@ -98,24 +98,19 @@ def main(app=create_app()):
           fpl_low = 125,
           fpl_high = 150,
           sliding_scale_fees = [
-            SlidingScaleFee(
-              name = 'Dental services',
+            SlidingScaleFee( name = DENTAL,
               price_percentage = 55
             ),
-            SlidingScaleFee(
-              name = 'Medical services',
+            SlidingScaleFee( name = MEDICAL,
               price_absolute = 20
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, initial visit of calendar month',
+            SlidingScaleFee( name = FIRST_VISIT,
               price_absolute = 20
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, second visit of calendar month',
+            SlidingScaleFee( name = SECOND_VISIT,
               price_absolute = 15
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, other visits',
+            SlidingScaleFee( name = OTHER_VISITS,
               price_absolute = 5
             )
           ]
@@ -125,30 +120,25 @@ def main(app=create_app()):
           fpl_low = 150,
           fpl_high = 200,
           sliding_scale_fees = [
-            SlidingScaleFee(
-              name = 'Dental services',
+            SlidingScaleFee( name = DENTAL,
               price_percentage = 65
             ),
-            SlidingScaleFee(
-              name = 'Medical services',
+            SlidingScaleFee( name = MEDICAL,
               price_absolute = 30
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, initial visit of calendar month',
+            SlidingScaleFee( name = FIRST_VISIT,
               price_absolute = 30
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, second visit of calendar month',
+            SlidingScaleFee( name = SECOND_VISIT,
               price_absolute = 25
             ),
-            SlidingScaleFee(
-              name = 'Mental health services, other visits',
+            SlidingScaleFee( name = OTHER_VISITS,
               price_absolute = 5
             )
           ]
         ),
         SlidingScale(
-          scale_name = 'Full fee',
+          scale_name = _('Full fee'),
           fpl_low = 200,
           fpl_high = None
         )
@@ -187,36 +177,36 @@ def main(app=create_app()):
       ],
       sliding_scales = [
         SlidingScale(
-          scale_name = 'All',
+          scale_name = _('All'),
           fpl_low = 0,
           fpl_high = None,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'Medications',
+              name = _('Medications'),
               price_absolute = 4
             ),
             SlidingScaleFee(
-              name = 'Nurse/Labs',
+              name = _('Nurse/Labs'),
               price_absolute = 10
             ),
             SlidingScaleFee(
-              name = 'Vaccine clinic',
+              name = _('Vaccine clinic'),
               price_absolute = 10
             ),
             SlidingScaleFee(
-              name = 'Medical visit/mental health',
+              name = _('Medical visit/mental health'),
               price_absolute = 15
             ),
             SlidingScaleFee(
-              name = 'Eye',
+              name = _('Eye'),
               price_absolute = 15
             ),
             SlidingScaleFee(
-              name = 'Same day appointments',
+              name = _('Same day appointments'),
               price_absolute = 20
             ),
             SlidingScaleFee(
-              name = 'Dental',
+              name = _('Dental'),
               price_absolute = 20
             )
           ]
@@ -323,7 +313,7 @@ def main(app=create_app()):
           fpl_high = 100,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 0
             )
           ]
@@ -334,7 +324,7 @@ def main(app=create_app()):
           fpl_high = 110,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 10
             )
           ]
@@ -345,55 +335,55 @@ def main(app=create_app()):
           fpl_high = 133,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 25
             )
           ]
-        ),  
+        ),
         SlidingScale(
           scale_name = 'D',
           fpl_low = 133,
           fpl_high = 167,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 50
             )
           ]
-        ),  
+        ),
         SlidingScale(
           scale_name = 'E',
           fpl_low = 167,
           fpl_high = 200,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 75
             )
           ]
-        ),  
+        ),
         SlidingScale(
           scale_name = 'F',
           fpl_low = 200,
           fpl_high = 250,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 95
             )
           ]
-        ),  
+        ),
         SlidingScale(
           scale_name = 'G',
           fpl_low = 250,
           fpl_high = None,
           sliding_scale_fees = [
             SlidingScaleFee(
-              name = 'All services',
+              name = ALL_SERVICES,
               price_percentage = 100
             )
           ]
-        ),               
+        ),
       ]
     )
 

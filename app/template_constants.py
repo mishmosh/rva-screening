@@ -1,4 +1,5 @@
 from flask.ext.babel import gettext as _
+from app.service_details import SERVICES
 
 YN_CHOICES = [("", ""), ("Y", _("Yes")), ("N", _("No"))]
 YN_NONULL_CHOICES = [("Y", _("Yes")), ("N", _("No"))]

@@ -1,0 +1,39 @@
+{% macro location_details(location) -%}
+      <div class="service_location_phone">
+        <span class="location_phone_number">{{ 
+          clickable_phone_number(location.phone.number, location.phone.extension)
+          }}</span>
+      </div>
+      <div class="service_location_address">
+        <span class="location_address">{{ google_directions(location) }}</span>
+      </div>
+      <div class="service_location_hours">
+        {% for hours in location.hours %}
+        {%- if hours.name -%}
+        <div class="location_hours_name">{{ hours.name }}</div>
+        {%- endif -%}
+        <table class="location_hours_table">
+          {%- for row in hours.listings -%}
+            <tr>
+              {%- for item in row -%}
+              <td>{{ item }}</td>
+              {%- endfor -%}
+            </tr>
+          {%- endfor -%}
+        </table>
+        {% endfor %}
+{% endmacro %}
+
+{% macro google_directions(location) %}
+<a target="_blank" href="https://maps.google.com/maps?daddr={{ 
+  location.name.replace(' ','+') }}+{{ 
+  location.address.replace(' ', '+') 
+  }}">{{ location.address }}</a>
+{% endmacro %}
+
+{% macro clickable_phone_number(phone_number_text, ext) %}
+<a href="tel:{{ phone_number_text }}
+  {%- if ext -%},{{ ext }}
+  {%- endif -%}
+  ">{{ phone_number_text }}</a>
+{% endmacro %}

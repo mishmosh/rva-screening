@@ -1,5 +1,6 @@
 import os
 import flask
+from markdown import Markdown
 
 def inject_static_url():
     """Adds `STATIC_URL` variable to template context.
@@ -22,3 +23,14 @@ def inject_example_data():
 def inject_template_constants():
     from app import template_constants
     return dict(CONSTANTS=template_constants)
+
+def register_markdown_filter(app):
+    md = Markdown(extensions=[
+        'markdown.extensions.tables',
+        'markdown.extensions.smarty'
+        ])
+    def markdown_filter(text, *args, **kwargs):
+        return md.convert(text, *args, **kwargs)
+    app.jinja_env.filters['markdown'] = markdown_filter
+
+
