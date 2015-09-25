@@ -1,11 +1,11 @@
 // a label for a field or a multifield
 .field_label {
-  display: table-cell;
-  color: $field-label-color;
+  float: left;
+  width: 75%;
+  // color: $field-label-color;
   font-weight: 700;
   font-size: 0.9em;
-  height: 35px;
-  vertical-align: bottom;
+  margin-top: 5px;
 }
 
 // flags are short pieces of text that explain something about the field
@@ -25,7 +25,7 @@
 
 // an individual input element in a field
 .field_input {
-  width: 100%;
+  text-align: right;
   &:focus {
     border: solid 1px $color-blue;
   }
@@ -39,16 +39,18 @@
 
 .field_input,
 .field_select {
+  float: right;
+  width: 20%;
+
   background-color: $color-white;
   display: block;
   padding: 0 0.5em;
-  height: 2em; // i think this is legit?
+  height: 25px; // i think this is legit?
   border: 1px solid #999;
   font-size: 0.9em;
   font-weight: 100;
   color: $color-black;
   @include bbox;
-  width: 100%;
   @media (min-width: $break) {}
   .field_input_large {
     padding: .7em 1em;

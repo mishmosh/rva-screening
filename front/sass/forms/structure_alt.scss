@@ -35,31 +35,6 @@ form li {
     font-weight: 300;
     font-family: $font-header;
   }
-
-  &.form_section_read {
-    .form_field {
-      @include clearfix();
-      margin: 0;
-      float: none;
-      display: block;
-      width: 100%;
-      padding: 5px 0;
-      border-bottom: 1px solid #e5e5e5;
-    }
-    * .field_label {
-      float: left;
-      width: 80%;
-      height: auto;
-    }
-    * .field_input {
-      float: right;
-      width: 20%;
-      background: transparent;
-      border: none;
-      padding: 0;
-      height: auto;
-    }
-  }
 }
 
 // a wrapping element for multiple fields that lie on one row
@@ -76,12 +51,16 @@ form li {
   }
 }
 
+
 // a single input with associated label and help text
 .form_field {
   @include bbox();
-  float: left;
-  margin-bottom: 1em;
+  @include clearfix();
+  margin: 0;
+  display: block;
   width: 100%;
+  padding: 5px 0;
+  border-bottom: 1px solid #e5e5e5;
 
   @media (min-width: $break) {
 
@@ -110,39 +89,39 @@ form li {
   }
 }
 
-.form_section_edit {
-  .form_field {
-    &.field_half {
-      width: 50%;
-    }
-    &.field_third {
-      width: 33.333333333%;
-    }
-    &.field_twothird {
-      width: 66.666666666%;
-    }
-    &.field_quarter {
-      width: 25%;
-    }
-    &.field_sixth {
-      width: 16.6666666%
-    }
+// .form_section_edit {
+//   .form_field {
+//     &.field_half {
+//       width: 50%;
+//     }
+//     &.field_third {
+//       width: 33.333333333%;
+//     }
+//     &.field_twothird {
+//       width: 66.666666666%;
+//     }
+//     &.field_quarter {
+//       width: 25%;
+//     }
+//     &.field_sixth {
+//       width: 16.6666666%
+//     }
 
-    &.field_pad {
-      padding-left: 10px;
-      padding-right: 10px;
-    }
-    &.field_pad_left {
-      padding-left: 10px;
-    }
-    &.field_pad_right {
-      padding-right: 10px;
-    }
-    &.field_float_right {
-      float: right;
-    }
-  }
-}
+//     &.field_pad {
+//       padding-left: 10px;
+//       padding-right: 10px;
+//     }
+//     &.field_pad_left {
+//       padding-left: 10px;
+//     }
+//     &.field_pad_right {
+//       padding-right: 10px;
+//     }
+//     &.field_float_right {
+//       float: right;
+//     }
+//   }
+// }
 
 
 .validation_valid,
