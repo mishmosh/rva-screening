@@ -53,12 +53,12 @@
   {% endif %}
 
   <!-- id info -->
-  <div id="general" class="form_section form_section_read">
+  <div id="general" class="form_section">
     {% include "includes/patient_id.html" %}
   </div>
 
   <!--contact info-->
-  <div id="contact" class="form_section form_section_read">
+  <div id="contact" class="form_section">
     <div class="form_section_title form_section_contact">{{ _("Phone, Email, Address") }}</div>
     <div class="expander-content">
       {% include "includes/patient_contact_info.html" %}
@@ -66,7 +66,7 @@
   </div>
 
   <!--contact info-->
-  <div id="emergency-contact" class="form_section form_section_read">
+  <div id="emergency-contact" class="form_section">
     <div class="form_section_title form_section_emergency">{{ _("Emergency Contacts") }}</div>
     <div class="expander-content">
       {% include "includes/patient_emergency_contact.html" %}
@@ -74,7 +74,7 @@
   </div>
 
   <!--household-->
-  <div id="household" class="form_section form_section_read">
+  <div id="household" class="form_section">
     <div class="form_section_title form_section_household">
       {{ _("Household Size") }}
       {% if patient.household_members %}: 
@@ -87,7 +87,7 @@
   </div>
 
   <!--income-->
-  <div id="income" class="form_section form_section_read">
+  <div id="income" class="form_section">
     <div class="form_section_title form_section_income">
       {{ _("Household Income") }}
       {% if patient.total_annual_income %}:
@@ -100,7 +100,7 @@
   </div>
 
   <!--documents-->
-  <div id="documents" class="form_section form_section_read">
+  <div id="documents" class="form_section">
     <div class="form_section_title form_section_documents">{{ _("Document Uploads") }}
       {% if patient.document_images %}
         ({{patient.document_images.count()}})
@@ -112,7 +112,7 @@
   </div>
 
   <!--demographics-->
-  <div id="demographics" class="form_section form_section_read">
+  <div id="demographics" class="form_section">
     <div class="form_section_title form_section_demographics">{{ _("Demographic Questions") }}</div>
     <div class="expander-content">
       {% include "includes/patient_demographic_info.html" %}
@@ -120,7 +120,7 @@
   </div>
 
   <!--employment-->
-  <div id="employment" class="form_section form_section_read">
+  <div id="employment" class="form_section">
     <div class="form_section_title form_section_employment">{{ _("Employment Information") }}</div>
     <div class="expander-content">
       {% include "includes/patient_employment_info.html" %}
@@ -128,7 +128,7 @@
   </div>
 
   <!--insurance-->
-  <div id="insurance" class="form_section form_section_read">
+  <div id="insurance" class="form_section">
     <div class="form_section_title form_section_insurance">{{ _("Insurance Information") }}</div>
     <div class="expander-content">
       {% include "includes/patient_insurance_info.html" %}

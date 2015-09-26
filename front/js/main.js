@@ -50,6 +50,14 @@ var AppController = function ( options ) {
       multiform.check($(this));
       return;
     });
+
+    $('.form_field, .form_multiform').mouseover(function (){
+       $(this).addClass("field_hover");
+     });
+
+     $('.form_field, .form_multiform').mouseout(function (){
+       $(this).removeClass("field_hover");
+     });
   }
 
   // If we're on the print page, hide everything that shouldn't print

@@ -62,13 +62,31 @@ form li {
   padding: 5px 0;
   border-bottom: 1px solid #e5e5e5;
 
-  @media (min-width: $break) {
-
+  &.field_child {
+    .field_label {
+      padding-left: 27px;
+      position: relative;
+      &:before {
+        content: "\0021B3";
+        // font-family: "FontAwesome";
+        position: absolute;
+        left: 7px;
+        top: 50%;
+        margin-top: -11px;
+        font-size: 17px;
+        color: $ui-new;
+      }
+    }
   }
-  &:not(:first-child) {
-    margin-left: -1px;
+
+  &.field_hover {
+    background: #f6f6f6;
   }
 
+  &.field_sub {
+    float: right;
+    width: 30%;
+  }
 
   &.form_field_large {
     .field_input {
@@ -185,6 +203,11 @@ form li {
   @include clearfix();
   counter-reset: section;
 }
+
+.form_multiform_collection {
+  counter-reset: section;
+}
+
 // a form that may be repeated based on the number of items
 // also called many-to-one form
 .form_multiform_title {
@@ -195,16 +218,27 @@ form li {
 .form_multiform {
   @include clearfix();
   position: relative;
-  border-top: 2px solid white;
-  padding: 1em;
   text-align: left;
   font-size: 1em;
+  padding: 5px 0;
+  border-bottom: 1px solid #e5e5e5;
+  counter-increment: section;
+
+  &::before {
+    position: absolute;
+    left: -14px;
+    top: 7px;
+    font-size: 12px;
+    color: $color-gray;
+    content: counters(section, " ");
+  }
+
+  &.field_hover {
+    background: #f6f6f6;
+  }
 
   &.form_multiform_read,
   &.form_multiform_self {
-    width: 50%;
-    float: left;
-    background-color: #f6f6f6;
     position: relative;
     border-right: 2px solid white;
     .multiform_content_fields {
@@ -218,11 +252,9 @@ form li {
   }
 
   &.form_multiform_edit {
-    float: left;
-    width: 100%;
     position: relative;
-    padding: 0.5em 1em;
-    background: lighten(#7FDBFF, 15);
+    padding: 5px 0 5px 10px;
+    border-left:5px solid lighten(#7FDBFF, 15);
     .multiform_content_fields {
       display: block;
     }
@@ -244,25 +276,30 @@ form li {
   }
 
   &.form_multiform_new {
-    float: left;
+    position: relative;
     width: 100%;
-    padding: 0.5em 1em;
+    padding: 0 5px;
     background: lighten(#7FDBFF, 15);
+    .form_field {
+      border:none;
+    }
   }
 
   &.form_multiform_add {
-    float: left;
-    width: 50%;
-    background: #f6f6f6;
+    text-align: right;
     color: $ui-new;
+    width: 100%;
+    padding-right: 5px;
+    background: transparent;
     position: relative;
-    border-left: none;
-    border-bottom: none;
-    border-right: 2px solid white;
+    border: none;
     cursor: pointer;
     &:hover {
       background: $ui-new;
       color: white;
+    }
+    &:before {
+      content: " ";
     }
   }
 
@@ -285,15 +322,16 @@ form li {
 
   .multiform_controls {
     position: absolute;
-    right: 1em;
+    right: 0;
     top: 50%;
     margin-top: -14px;
     z-index: 10;
+    font-size: 12px;
     .multiform_control {
       margin: 0;
       display: inline;
-      width: 30px;
-      padding: 0.4em;
+      width: 26px;
+      padding: 6px;
       background: transparent;
       border: 1px solid $color-white;
       border-radius: 50%;
