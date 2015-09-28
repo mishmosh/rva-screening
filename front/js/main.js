@@ -52,12 +52,22 @@ var AppController = function ( options ) {
     });
 
     $('.form_field, .form_multiform').mouseover(function (){
-       $(this).addClass("field_hover");
-     });
+      $(this).addClass("field_hover");
+    });
 
-     $('.form_field, .form_multiform').mouseout(function (){
-       $(this).removeClass("field_hover");
-     });
+    $('.form_field, .form_multiform').mouseout(function (){
+      $(this).removeClass("field_hover");
+    });
+
+    $('.edit_form_section').on('click', function(e) {
+      e.preventDefault();
+      $(this).parent().removeClass('form_read_only')
+      var id = $(this).parent().attr('id');
+      $('#'+id+' input, #'+id+' select').prop('disabled', false);
+      return false;
+    });
+
+
   }
 
   // If we're on the print page, hide everything that shouldn't print

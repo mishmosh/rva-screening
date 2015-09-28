@@ -53,16 +53,18 @@
   {% endif %}
 
   <!-- id info -->
-  <div id="general" class="form_section">
+  <div id="general" class="form_section form_read_only">
     {% include "includes/patient_id.html" %}
+    <button class="button button_blue edit_form_section">Edit this section</button>
   </div>
 
   <!--contact info-->
-  <div id="contact" class="form_section">
+  <div id="contact" class="form_section form_read_only">
     <div class="form_section_title form_section_contact">{{ _("Phone, Email, Address") }}</div>
     <div class="expander-content">
       {% include "includes/patient_contact_info.html" %}
     </div>
+    <button class="button button_blue edit_form_section">Edit this section</button>
   </div>
 
   <!--contact info-->
@@ -128,11 +130,12 @@
   </div>
 
   <!--insurance-->
-  <div id="insurance" class="form_section">
+  <div id="insurance" class="form_section form_read_only">
     <div class="form_section_title form_section_insurance">{{ _("Insurance Information") }}</div>
     <div class="expander-content">
       {% include "includes/patient_insurance_info.html" %}
     </div>
+    <button class="button button_blue edit_form_section">Edit this section</button>
   </div>
 
   <!-- <div class="patient_details_actions"> -->
